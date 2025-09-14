@@ -1,0 +1,98 @@
+# Docker Compose 文件版本
+version: '3.7    volumes:
+      - ./config/redis-node-1.conf:/usr/local/etc/redis/redis.conf
+      - ./data/node-1:/data# 定义服务
+services:
+  # Redis 节点 1
+  redis-node-1:
+    # 使用的 Docker 镜像
+    image: redis:7
+    # 容器名称
+    container_name: redis-node-1
+    # 容器启动时执行的命令
+    # 这里是使用指定的配置文件启动 Redis 服务
+    command: redis-server /usr/local/etc/redis/redis.conf
+    # 端口映射，格式为：<主机端口>:<容器端口>
+    ports:
+      - "7001:6379"
+    # 卷映射，用于持久化数据和配置文件
+    # 格式为：<主机路径>:<容器路径>
+    volumes:
+      # 将主机的 redis-node-1.conf 文件映射到容器中作为配置文件
+      - ./redis-node-1.conf:/usr/local/etc/redis/redis.conf
+      # 将主机的 data/node-1 目录映射到容器的 /data 目录，用于存放 Redis 数据
+      - ./data/node-1:/data
+    # 将容器连接到指定的网络
+    networks:
+      - redis-cluster-net
+
+  # Redis 节点 2，配置与节点 1 类似
+  redis-node-2:
+    image: redis:7
+    container_name: redis-node-2
+    command: redis-server /usr/local/etc/redis/redis.conf
+    ports:
+      - "7002:6379"
+    volumes:
+      - ./config/redis-node-2.conf:/usr/local/etc/redis/redis.conf
+      - ./data/node-2:/data
+    networks:
+      - redis-cluster-net
+
+  # Redis 节点 3，配置与节点 1 类似
+  redis-node-3:
+    image: redis:7
+    container_name: redis-node-3
+    command: redis-server /usr/local/etc/redis/redis.conf
+    ports:
+      - "7003:6379"
+    volumes:
+      - ./config/redis-node-3.conf:/usr/local/etc/redis/redis.conf
+      - ./data/node-3:/data
+    networks:
+      - redis-cluster-net
+
+  # Redis 节点 4，配置与节点 1 类似
+  redis-node-4:
+    image: redis:7
+    container_name: redis-node-4
+    command: redis-server /usr/local/etc/redis/redis.conf
+    ports:
+      - "7004:6379"
+    volumes:
+      - ./redis-node-4.conf:/usr/local/etc/redis/redis.conf
+      - ./data/node-4:/data
+    networks:
+      - redis-cluster-net
+
+  # Redis 节点 5，配置与节点 1 类似
+  redis-node-5:
+    image: redis:7
+    container_name: redis-node-5
+    command: redis-server /usr/local/etc/redis/redis.conf
+    ports:
+      - "7005:6379"
+    volumes:
+      - ./redis-node-5.conf:/usr/local/etc/redis/redis.conf
+      - ./data/node-5:/data
+    networks:
+      - redis-cluster-net
+
+  # Redis 节点 6，配置与节点 1 类似
+  redis-node-6:
+    image: redis:7
+    container_name: redis-node-6
+    command: redis-server /usr/local/etc/redis/redis.conf
+    ports:
+      - "7006:6379"
+    volumes:
+      - ./redis-node-6.conf:/usr/local/etc/redis/redis.conf
+      - ./data/node-6:/data
+    networks:
+      - redis-cluster-net
+
+# 定义网络
+networks:
+  # 定义一个名为 redis-cluster-net 的桥接网络
+  redis-cluster-net:
+    driver: bridge

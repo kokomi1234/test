@@ -1,0 +1,14 @@
+# Redis Cluster Demo Dependencies
+
+# Core Redis client library with built-in cluster support
+# RedisCluster is integrated into redis package since v4.0.0
+redis>=4.0.0
+
+# Optional development dependencies
+# pytest>=7.0.0          # For unit testing
+# pytest-asyncio>=0.21.0 # For async testing  
+# black>=22.0.0          # Code formatting
+# flake8>=4.0.0          # Code linting
+
+# Note: redis-py-cluster is no longer needed as RedisCluster
+# is now part of the main redis package
