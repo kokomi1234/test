@@ -1,7 +1,7 @@
 # Docker Compose 文件版本
-version: '3.7    volumes:
-      - ./config/redis-node-1.conf:/usr/local/etc/redis/redis.conf
-      - ./data/node-1:/data# 定义服务
+version: '3.7'
+
+# 定义服务
 services:
   # Redis 节点 1
   redis-node-1:
@@ -19,7 +19,7 @@ services:
     # 格式为：<主机路径>:<容器路径>
     volumes:
       # 将主机的 redis-node-1.conf 文件映射到容器中作为配置文件
-      - ./redis-node-1.conf:/usr/local/etc/redis/redis.conf
+      - ./config/redis-node-1.conf:/usr/local/etc/redis/redis.conf
       # 将主机的 data/node-1 目录映射到容器的 /data 目录，用于存放 Redis 数据
       - ./data/node-1:/data
     # 将容器连接到指定的网络
@@ -60,7 +60,7 @@ services:
     ports:
       - "7004:6379"
     volumes:
-      - ./redis-node-4.conf:/usr/local/etc/redis/redis.conf
+      - ./config/redis-node-4.conf:/usr/local/etc/redis/redis.conf
       - ./data/node-4:/data
     networks:
       - redis-cluster-net
@@ -73,7 +73,7 @@ services:
     ports:
       - "7005:6379"
     volumes:
-      - ./redis-node-5.conf:/usr/local/etc/redis/redis.conf
+      - ./config/redis-node-5.conf:/usr/local/etc/redis/redis.conf
       - ./data/node-5:/data
     networks:
       - redis-cluster-net
@@ -86,7 +86,7 @@ services:
     ports:
       - "7006:6379"
     volumes:
-      - ./redis-node-6.conf:/usr/local/etc/redis/redis.conf
+      - ./config/redis-node-6.conf:/usr/local/etc/redis/redis.conf
       - ./data/node-6:/data
     networks:
       - redis-cluster-net
